@@ -7,7 +7,9 @@ class pwmMotor{
   public:
     pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPinOne_in, int hallPinTwo_in);
     void goToPos(float requiredPos);
-    static void increase_hall_vall_one();
+    int check_rotation();
+    static void increase_hall_val_one();
+    static void increase_hall_val_two();
 
   private:
     int forwardPin;
@@ -15,6 +17,7 @@ class pwmMotor{
     int PWMPin;
     int hallOnePin;
     int hallTwoPin;
+    int pass_by_rot;
     
     float newPos;
 };
