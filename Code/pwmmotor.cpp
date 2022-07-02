@@ -1,4 +1,5 @@
 #include "pwmmotor.h"
+#include "hapticSensor.h"
 
 static volatile int hall_count_one = 0;
 static volatile int hall_count_two = 0; 
@@ -10,6 +11,7 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
 , hallOnePin(hallPinOne_in)
 , hallTwoPin(hallPinTwo_in)
 , pass_by_rot(12000)
+, lastMotorSpeed(0)
 {
   pinMode(forwardPin_in, OUTPUT);
   pinMode(backwardPin_in, OUTPUT);
@@ -19,8 +21,26 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
   attachInterrupt(hallTwoPin,increase_hall_val_two,CHANGE);
 }
 
-void pwmMotor::goToPos(float requiredPos){
-  
+void pwmMotor::goToSpeed(int motorSpeed){
+  if (motorSpeed != lastMotorSpeed){
+    if (motorSpeed > 0){
+      if (dirFlag == 0){    // 1 means clockwise rotation, and are positive
+        digitalWrite(forwardPin, HIGH);
+        digitalWrite(backwardPin, LOW);
+        dirFlag = 1;
+      }
+      analogWrite(PWMPin, motorSpeed);
+    } else if (motorSpeed < 0) {
+      if (dirFlag == 1) {
+        digitalWrite(forwardPin,LOW);
+        digitalWrite(backwardPin, HIGH);
+        dirFlag = 0;
+      }
+      analogWrite(PWMPin,motorSpeed);
+    } 
+    lastMotorSpeed = motorSpeed;
+  }
+  return;
 }
 
 int pwmMotor::check_rotation(){
