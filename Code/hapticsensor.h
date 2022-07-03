@@ -2,7 +2,18 @@
  * Author:
  * Maritn Økter
  * 
+ * This libary is a cloection of funktions for correct readings 
+ * of the different integrated sensores in the Haptic Arm
  * 
+ * Use readForce() for the forcesensor, but remember to adjust the 
+ * instrument amplifier for zeroing
+ * 
+ * Use the readPos() for reading the position encoder. This 
+ * function use the libary AS5600 for reading
+ * 
+ * Use readCurrent() for reading the current fed to the motor,
+ * remember to adjust the gain setting if a different current 
+ * sensor is used
  * 
  * This liabry requires: arduino and AS5600
  */
@@ -18,6 +29,7 @@ class HapticSensor{
     HapticSensor(int forcePin, int currentPin);
     float readForce();
     float readPos();
+    float readCurrent();
   
   private:
     int forceSensorPin;
@@ -28,6 +40,8 @@ class HapticSensor{
 
     int magMinVal;
     int magMaxVal;
+
+    float currentGain;
 
     AMS_5600 magDisk_;
 };

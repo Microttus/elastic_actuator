@@ -5,6 +5,7 @@ HapticSensor::HapticSensor(int forcePin, int currentPin)
 , currentSensorPin(currentPin)
 , magMinVal(0)
 , magMaxVal(4096)
+, currentGain(400)
 {
  
 }
@@ -22,4 +23,12 @@ float HapticSensor::readPos(){
   float angle_pos = map(raw_val, magMinVal, magMaxVal, 0, 180);
 
   return angle_pos;
+}
+
+float HapticSensor::readCurrent(){
+  int raw_val = analogRead(currentSensorPin);
+  float raw_volt = ((raw_val * 5)/1023) - 2500;
+  float current_read = raw_volt/currentGain;
+
+  return currentGain;
 }
