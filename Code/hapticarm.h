@@ -21,8 +21,6 @@ class HapticArm{
     void resistForce(float forceThreshold);
   
   private:
-    int my_val;
-
     HapticSensor ArmSensor_;
     pwmMotor MainMotor_;
     PID PositionPID_;

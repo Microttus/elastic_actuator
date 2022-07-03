@@ -3,22 +3,24 @@
   Buliding the pwm motor liabry for inegrated control
 */
 
-#include "pwmmotor.h"
+#include "hapticarm.h"
 
 // intitiate ports numbers
-int motorSettings[5] = {7, 8, 9, 0, 1}; // Pins for motor {forward, backward, PWM, hall_1, hall_2}
+int motorSetting[5] = {7, 8, 9, 0, 1}; // Pins for motor {forward, backward, PWM, hall_1, hall_2}
 int sensorSetting[2] = {6,7}; // Pins for sensor  {force, current}
-int positionPID[3] = {1,0,0}; // Pid for position {Kp, Ki, Kd}
+int positionPID[3] = {2,0,0}; // Pid for position {Kp, Ki, Kd}
 int forcePID[3] = {1,0,0}; // Pid for force {Kp, Ki, Kd} 
 
+HapticArm HapArm_(motorSetting, sensorSetting, positionPID, forcePID);
 
 void setup() {
-  // Setup of DC motor controller
-  //pinMode(motorPinForward, OUTPUT);
-  //pinMode(motorPinBackward, OUTPUT);
+  // Initislize importent comunication
+  Serial.begin(9600);
+  Wire.begin();
 
 }
 
 void loop() {
-  //Motorcontrol_.goToPos(90);
+  HapArm_.goToPos(90);
+  delay(2);
 }

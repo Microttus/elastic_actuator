@@ -21,7 +21,7 @@ float PID::calculate(float value, float target){
   float dot_error = (in_error - last_val)/dt;
   float int_error = last_i_val + (in_error * dt);
 
-  float calc_val = Kp * int_error + Ki * int_error + Kd * dot_error;
+  float calc_val = Kp * in_error + Ki * int_error + Kd * dot_error;
   
   last_i_val = int_error;
   last_val = calc_val;

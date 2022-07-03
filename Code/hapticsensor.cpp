@@ -7,7 +7,7 @@ HapticSensor::HapticSensor(int forcePin, int currentPin)
 , magMaxVal(4096)
 , currentGain(400)
 {
- 
+  //Wire.begin();
 }
 
 float HapticSensor::readForce(){
