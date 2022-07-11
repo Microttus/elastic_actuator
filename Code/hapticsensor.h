@@ -31,6 +31,8 @@ class HapticSensor{
     float readForce();
     float readPos();
     float readCurrent();
+    float readSwitch();
+    float calibrateEncoder(float newMinVal, float newMaxVal);
   
   private:
     int forceSensorPin;

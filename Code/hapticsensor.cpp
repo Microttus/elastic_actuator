@@ -32,3 +32,12 @@ float HapticSensor::readCurrent(){
 
   return currentGain;
 }
+
+float HapticSensor::readSwitch(){
+  
+}
+
+float HapticSensor::calibrateEncoder(float newMinVal, float newMaxVal){
+  magMinVal = newMinVal;
+  magMaxVal = newMaxVal;
+}
