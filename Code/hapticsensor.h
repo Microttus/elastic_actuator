@@ -38,7 +38,7 @@ class HapticSensor{
     int forceSensorPin;
     int currentSensorPin;
 
-    int loadcellType = 20; //The kilo rating for the force sensor used to adjust the signal
+    int loadcellType = 5; //The kilo rating for the force sensor used to adjust the signal
     float g = 9.81; //m/s^2
 
     int magMinVal;

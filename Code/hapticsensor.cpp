@@ -3,33 +3,34 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin)
 : forceSensorPin(forcePin)
 , currentSensorPin(currentPin)
-, magMinVal(0)
-, magMaxVal(4096)
+, magMinVal(835)
+, magMaxVal(3676)
 , currentGain(400)
 {
-  //Wire.begin();
+  analogReadResolution(10);
 }
 
 float HapticSensor::readForce(){
+  // Need prof ceck for how the load cell are to be read
   float loadcellVoltage = analogRead(forceSensorPin);
-  float messuredWeight = ((loadcellVoltage/2.5)-2.5)*loadcellType; 
+  float messuredWeight = (((loadcellVoltage*2)/1023)-1)*loadcellType; 
   float messuredForce = messuredWeight * g;
   
-  return messuredForce;
+  return messuredWeight;
 }
 
 float HapticSensor::readPos(){
   int raw_val = magDisk_.getRawAngle();
-  float angle_pos = map(raw_val, magMinVal, magMaxVal, 0, 180);
-
+  float angle_pos = map(raw_val, magMinVal, magMaxVal, 0, 250);
+  
   return angle_pos;
 }
 
 float HapticSensor::readCurrent(){
   int raw_val = analogRead(currentSensorPin);
-  float raw_volt = ((raw_val * 5)/1023) - 2500;
-  float current_read = raw_volt/currentGain;
-
+  float raw_volt = ((raw_val * 5.0)/1023);
+  float current_read = raw_volt/(currentGain*0.001);
+  
   return currentGain;
 }
 

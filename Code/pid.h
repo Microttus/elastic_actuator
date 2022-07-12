@@ -22,6 +22,7 @@ class PID
   public:
     PID(float Kp_in, float Ki_in, float Kd_in);
     float calculate(float value, float target);
+    float backcalc(float value, float target, float backVal);
   
   private:
     float Kp;

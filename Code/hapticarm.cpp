@@ -1,6 +1,6 @@
 #include "hapticarm.h"
 
-HapticArm::HapticArm(int motorSettings[], int sensorSettings[], int PosSet[], int ForceSet[])
+HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PosSet[], float ForceSet[])
 : ArmSensor_(sensorSettings[0],sensorSettings[1])
 , MainMotor_(motorSettings[0], motorSettings[1], motorSettings[2], motorSettings[3], motorSettings[4])
 , PositionPID_(PosSet[0], PosSet[1], PosSet[2])
@@ -20,6 +20,9 @@ void HapticArm::goToPos(float requiredPos){
   
   int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
   MainMotor_.goToSpeed(calcSpeed);
+
+  float currentCurrent = ArmSensor_.readForce();
+  Serial.println(currentPos);
   return;
 }
 
@@ -27,13 +30,15 @@ void HapticArm::resistForce(float forceThreshold){
   // Used for resisting a force in 
   int calcSpeed; // Initialise for use
   float currentForce = ArmSensor_.readForce();
+  //Serial.println(currentForce);
 
-  if (currentForce >= forceThreshold){
-    float currentPos = 0;//ArmSensor_.readPos();
-    calcSpeed = PositionPID_.calculate(currentPos, 0);
+  if (currentForce <= forceThreshold){
+    float currentPos = ArmSensor_.readPos();
+    calcSpeed = PositionPID_.calculate(currentPos, 90);
   } else {
     calcSpeed = ForcePID_.calculate(currentForce, forceThreshold);
   }
+  Serial.println(calcSpeed);
   MainMotor_.goToSpeed(calcSpeed);
   return;
 }

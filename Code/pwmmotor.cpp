@@ -39,7 +39,7 @@ void pwmMotor::goToSpeed(int motorSpeed){
     }
     analogWrite(PWMPin,abs(motorSpeed)); 
     lastMotorSpeed = motorSpeed;
-    Serial.println(lastMotorSpeed);
+    //Serial.println(lastMotorSpeed);
   }
   return;
 }

@@ -16,7 +16,7 @@
 
 class HapticArm{
   public:
-    HapticArm(int motorSettings[], int sensorSettings[], int PosSet[], int ForceSet[]);
+    HapticArm(int motorSettings[], int sensorSettings[], float PosSet[], float ForceSet[]);
     void goToPos(float requiredPos);
     void resistForce(float forceThreshold);
     void goSpring(float massConstant, float damperConstant, float springConstant, float initialPosition = 90.0);
