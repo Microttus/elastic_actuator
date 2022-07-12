@@ -12,6 +12,8 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
 , hallTwoPin(hallPinTwo_in)
 , pass_by_rot(12000)
 , lastMotorSpeed(0)
+, saturationMax(255)
+, saturationMin(255)
 {
   pinMode(forwardPin_in, OUTPUT);
   pinMode(backwardPin_in, OUTPUT);
@@ -37,7 +39,8 @@ void pwmMotor::goToSpeed(int motorSpeed){
         dirFlag = 0;
       }
     }
-    analogWrite(PWMPin,abs(motorSpeed)); 
+    motorSpeed = abs(constrain(motorSpeed, saturationMin, saturationMax));
+    analogWrite(PWMPin,motorSpeed); 
     lastMotorSpeed = motorSpeed;
     //Serial.println(lastMotorSpeed);
   }

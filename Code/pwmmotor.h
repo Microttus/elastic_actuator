@@ -24,6 +24,8 @@ class pwmMotor{
     
     int triggersPerRound;
     float roundPerangle;
+    int saturationMax;
+    int saturationMin;
     
     bool dirFlag;
     

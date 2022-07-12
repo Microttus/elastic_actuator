@@ -22,7 +22,7 @@ class PID
   public:
     PID(float Kp_in, float Ki_in, float Kd_in);
     float calculate(float value, float target);
-    float backcalc(float value, float target, float backVal);
+    float backcalc(float value, float target, float backVal, float saturationMin, float saturationMax);
   
   private:
     float Kp;
@@ -32,6 +32,7 @@ class PID
     float last_i_val;
     unsigned long my_time;
     unsigned long dt;
+    float sat_calc_val;
     
 };
 
