@@ -19,13 +19,14 @@ class pwmMotor{
     int PWMPin;
     int hallOnePin;
     int hallTwoPin;
-    int pass_by_rot;
+    float pass_by_rot;
     int lastMotorSpeed;
     
     int triggersPerRound;
     float roundPerangle;
     int saturationMax;
     int saturationMin;
+    int currentMotorDir;
     
     bool dirFlag;
     

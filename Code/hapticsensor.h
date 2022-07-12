@@ -27,16 +27,19 @@
 
 class HapticSensor{
   public:
-    HapticSensor(int forcePin, int currentPin);
+    HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo);
     float readForce();
     float readPos();
     float readCurrent();
-    float readSwitch();
-    float calibrateEncoder(float newMinVal, float newMaxVal);
+    int* readSwitch();
+    int calibrateEncoder(int newMinVal, int newMaxVal);
   
   private:
     int forceSensorPin;
     int currentSensorPin;
+    int switchOne;
+    int switchTwo;
+    int switchList[2] = {3,3};
 
     int loadcellType = 5; //The kilo rating for the force sensor used to adjust the signal
     float g = 9.81; //m/s^2

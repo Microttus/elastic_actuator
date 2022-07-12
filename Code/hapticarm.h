@@ -35,6 +35,10 @@ class HapticArm{
     float* calcMovement();
     float lastPosition;
     float lastMovedSpeed;
+    int calibrationSpeed;
+    int raw_min;
+    int raw_max;
+    int switchType; // NO = 1; NC = 0;
     
 };
 

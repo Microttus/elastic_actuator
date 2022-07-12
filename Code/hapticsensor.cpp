@@ -1,13 +1,19 @@
 #include "hapticsensor.h"
 
-HapticSensor::HapticSensor(int forcePin, int currentPin)
+HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : forceSensorPin(forcePin)
 , currentSensorPin(currentPin)
 , magMinVal(835)
 , magMaxVal(3676)
 , currentGain(400)
+, switchOne(switchPinOne)
+, switchTwo(switchPinTwo)
 {
   analogReadResolution(10);
+  pinMode(switchOne, INPUT);
+  pinMode(switchTwo, INPUT);
+  pinMode(forceSensorPin, INPUT);
+  pinMode(currentSensorPin, INPUT);
 }
 
 float HapticSensor::readForce(){
@@ -34,11 +40,17 @@ float HapticSensor::readCurrent(){
   return currentGain;
 }
 
-float HapticSensor::readSwitch(){
-  
+int* HapticSensor::readSwitch(){
+  switchList[0] = digitalRead(switchOne);
+  switchList[1] = digitalRead(switchTwo);
+  return switchList;
 }
 
-float HapticSensor::calibrateEncoder(float newMinVal, float newMaxVal){
+int HapticSensor::calibrateEncoder(int newMinVal, int newMaxVal){
   magMinVal = newMinVal;
   magMaxVal = newMaxVal;
+
+  int raw_val = magDisk_.getRawAngle();
+  
+  return raw_val;
 }

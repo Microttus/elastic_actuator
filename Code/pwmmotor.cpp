@@ -10,20 +10,22 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
 , PWMPin(pwm_in)
 , hallOnePin(hallPinOne_in)
 , hallTwoPin(hallPinTwo_in)
-, pass_by_rot(12000)
+, pass_by_rot(4000.0)
 , lastMotorSpeed(0)
-, saturationMax(255)
-, saturationMin(255)
+, saturationMax(200)
+, saturationMin(-200)
+, currentMotorDir(0)
 {
   pinMode(forwardPin_in, OUTPUT);
   pinMode(backwardPin_in, OUTPUT);
   pinMode(pwm_in, OUTPUT);
 
   attachInterrupt(hallOnePin,increase_hall_val_one,CHANGE);
-  attachInterrupt(hallTwoPin,increase_hall_val_two,CHANGE);
+  //attachInterrupt(hallTwoPin,increase_hall_val_two,CHANGE);
 }
 
 void pwmMotor::goToSpeed(int motorSpeed){
+  currentMotorDir = motorSpeed/abs(motorSpeed);
   if (motorSpeed != lastMotorSpeed){
     if (motorSpeed > 0){
       if (dirFlag == 0){    // 1 means clockwise rotation, and are positive
@@ -42,7 +44,6 @@ void pwmMotor::goToSpeed(int motorSpeed){
     motorSpeed = abs(constrain(motorSpeed, saturationMin, saturationMax));
     analogWrite(PWMPin,motorSpeed); 
     lastMotorSpeed = motorSpeed;
-    //Serial.println(lastMotorSpeed);
   }
   return;
 }
@@ -51,8 +52,8 @@ int pwmMotor::check_rotation(){
   noInterrupts();
   int number_of_pass = hall_count_one + hall_count_two;
   interrupts();
-  int number_of_rot = number_of_pass/pass_by_rot;
-  return number_of_rot;
+  float number_of_ang = (number_of_pass/pass_by_rot)*360.0;
+  return number_of_ang;
 }
 
 void pwmMotor::increase_hall_val_one() {
