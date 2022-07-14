@@ -9,6 +9,9 @@
 ## HapticArm Libary
 
 - The goToPos method makes use of a PID controller and the encoders for maintaing the position of the Arm at a sertain deegree from 0
+- The goToImpedance method enable for impecace (position - position) control of the Haptic arm, maintaning a requested angle
+- The goToAdmittance method enable for admittance (force - position) control of the Haptic arm, maintaning a requested force
+
 - The resistForce makes the arm maintain the given position with the goToPos method until the force barrier given are breached, then the arm gived in and change position
 - The goSpring method makes the Arm change its position form the given staring position acting like a spring with the given mass, dmaper and spring constant given
 - The calicaration method makes use of the two presure switches for calibration of max and min calibration of the encoder
