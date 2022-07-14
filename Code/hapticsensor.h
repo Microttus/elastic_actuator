@@ -1,6 +1,6 @@
 /*
  * Author:
- * Maritn Økter
+ * Microttus
  * 
  * This libary is a cloection of funktions for correct readings 
  * of the different integrated sensores in the Haptic Arm

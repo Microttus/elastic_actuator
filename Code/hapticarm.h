@@ -16,8 +16,10 @@
 
 class HapticArm{
   public:
-    HapticArm(int motorSettings[], int sensorSettings[], float PosSet[], float ForceSet[]);
+    HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3]);
     void goToPos(float requiredPos);
+    void goToImpedance(float requiredPos, float antiConst);
+    void goToAdmittance(float requiredPos, float antiConst);
     void resistForce(float forceThreshold);
     void goSpring(float massConstant, float damperConstant, float springConstant, float initialPosition = 90.0);
     void calibrateArm();
@@ -26,6 +28,7 @@ class HapticArm{
     HapticSensor ArmSensor_;
     pwmMotor MainMotor_;
     PID PositionPID_;
+    PID MotorPID_;
     PID ForcePID_;
 
     float armLength;
@@ -39,6 +42,7 @@ class HapticArm{
     int raw_min;
     int raw_max;
     int switchType; // NO = 1; NC = 0;
+    int saturationLimit[2] = {-255, 255};
     
 };
 

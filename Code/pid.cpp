@@ -1,5 +1,4 @@
-#include "Arduino.h"
-#include "PID.h"
+#include "pid.h"
 
 PID::PID(float Kp_in, float Ki_in, float Kd_in)
 : Kp(Kp_in)

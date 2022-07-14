@@ -1,15 +1,19 @@
 /*
  * Author:
- * Borge, Wad, Økter
- * 
+ * Microttus
+ *  
  * A short libary for impolimenting a PID controller into the system 
+ * 
+ * Include
+ * - Normal PID
+ * - PID with backcalculation saturation
  * 
  * Initialize the PID with the wanted Kp, Ki and Kd values for the wanted PID
  * Use calculate(current value, desired value) to calculate the next step for the controller 
  * 
  * The libary will handle last values and time keeping by itself
  * 
- * This liabry requires: arduino
+ * This liabry requires: Arduino
  */
 
 #ifndef PID_h

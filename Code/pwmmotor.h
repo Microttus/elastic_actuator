@@ -1,17 +1,30 @@
+/*
+ * pwmMotor
+ * --------
+ * for HapticSommerSchool
+ * --------
+ * Author: Microttus
+ * 
+ * 
+ * A compeate class for control of a pwm motor with hall encoder
+ * as an object, for easy operation
+ * 
+ * Required libaries: Arduino
+ */
+
 #ifndef pwmmotor_h
 #define pwmmotor_h
 
 #include "Arduino.h"
-#include "pid.h"
-#include "hapticsensor.h"
 
 class pwmMotor{
   public:
     pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPinOne_in, int hallPinTwo_in);
-    void goToSpeed(int motorSpeed);
-    int check_rotation();
-    static void increase_hall_val_one();
-    static void increase_hall_val_two();
+    void goToSpeed(int motorSpeed);           // Method primaly used for controlling the pwm motor
+    int check_rotation();                     // Method for returning the angle aproximated by the motor 
+    static void increase_hall_val_one();      // Increase counter for hall one if triggered
+    static void increase_hall_val_two();      // Increase counter for hall two if triggered
+    static void reset_hall_val();             // Resett the hall counter for calibration
 
   private:
     int forwardPin;
@@ -26,14 +39,9 @@ class pwmMotor{
     float roundPerangle;
     int saturationMax;
     int saturationMin;
-    int currentMotorDir;
     
-    bool dirFlag;
-    
+    bool dirFlag;    
     float newPos;
-    
-    
-    HapticSensor armSensor_(int a = 1, int b = 2);
 };
 
 #endif
