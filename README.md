@@ -6,12 +6,12 @@ In Haptic devices there are two main ways for control. Impedance control aim to 
 
 ![Block Diagram](/images/AdImpblockdiagram.png)
 
+
 ## Code
 The code which is to be used can be found in Code.
 
 The main control .ino file can be altered to control the arm in different available modes. The libaries can also be used seperately for control of other mechanical instalation. 
 
-The main goL OF THIS PROJECT IS TO CREATE 
 
 ## CAD
 A version off the design can be found in CAD, this may not be the final version
