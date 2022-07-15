@@ -4,7 +4,7 @@ The main gloa of this project is to create a easy to bulid and assamble haptic i
 
 In Haptic devices there are two main ways for control. Impedance control aim to steer the position by reading the motor force. Admittance control aim to control the force of the device by adjusting the position. This two are integrated as methods and can be used directly, By the use of the low level libaries this contol codes may also be created by the user. A discriptive block diagram of the two control loops. 
 
-![Block Diagram](/HapticSommerSchool/images/AdImpblockdiagram.png)
+![Block Diagram](/images/AdImpblockdiagram.png)
 
 ## Code
 The code which is to be used can be found in Code.
