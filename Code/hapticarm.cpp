@@ -173,7 +173,7 @@ void HapticArm::emergencyCheck(){
 
 void HapticArm::emergencyBreak(){
   while (true) {
-    MainMotor_.goToSpeed(0);
+    MainMotor_.stop();
     Serial.println("Motor emergency break due to limits");
     delay(1000);
   }

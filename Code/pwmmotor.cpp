@@ -81,3 +81,9 @@ void pwmMotor::reset_hall_val(){
 int pwmMotor::return_motor_dir(){
   return currentMotorDir;
 }
+
+void pwmMotor::stop(){
+  digitalWrite(forwardPin, LOW);
+  digitalWrite(backwardPin, LOW);
+  analogWrite(PWMPin,0); 
+}

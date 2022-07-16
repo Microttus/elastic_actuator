@@ -26,6 +26,7 @@ class pwmMotor{
     static void increase_hall_val_two();      // Increase counter for hall two if triggered
     static void reset_hall_val();             // Resett the hall counter for calibration
     int return_motor_dir();                   // Return the current motor dir
+    void stop();                              // Total stop off the motor
 
   private:
     int forwardPin;
