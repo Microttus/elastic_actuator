@@ -77,3 +77,7 @@ void pwmMotor::reset_hall_val(){
   hall_count_one = 0;
   hall_count_two = 0;
 }
+
+int pwmMotor::return_motor_dir(){
+  return currentMotorDir;
+}

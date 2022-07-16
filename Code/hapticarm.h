@@ -1,4 +1,6 @@
 /*
+ * Main control libary with simple comands for controlling tha Haptic Arm
+ *
  * Author:
  * Microttus
  * 
@@ -43,6 +45,10 @@ class HapticArm{
     int raw_max;
     int switchType; // NO = 1; NC = 0;
     int saturationLimit[2] = {-255, 255};
+
+    void emergencyCheck();
+    void emergencyBreak();
+    int forward_index;
     
 };
 

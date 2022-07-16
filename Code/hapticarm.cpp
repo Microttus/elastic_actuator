@@ -25,6 +25,7 @@ void HapticArm::goToPos(float requiredPos){
   
   int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
   MainMotor_.goToSpeed(calcSpeed);
+  emergencyCheck();
 
   //float currentCurrent = ArmSensor_.readForce();
   Serial.println(calcSpeed);
@@ -41,6 +42,7 @@ void HapticArm::goToImpedance(float requiredPos, float antiConst){
   int calcSpeed = MotorPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
 
   MainMotor_.goToSpeed(calcSpeed);
+  emergencyCheck();
 
   Serial.println(calcSpeed);
   return;
@@ -56,6 +58,7 @@ void HapticArm::goToAdmittance(float requiredForce, float antiConst){
   int calcSpeed = PositionPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
 
   MainMotor_.goToSpeed(calcSpeed);
+  emergencyCheck();
 
   Serial.println(calcSpeed);
   return;
@@ -75,6 +78,7 @@ void HapticArm::resistForce(float forceThreshold){
   }
   Serial.println(calcSpeed);
   MainMotor_.goToSpeed(calcSpeed);
+  emergencyCheck();
   return;
 }
 
@@ -122,10 +126,12 @@ float* HapticArm::calcMovement(){
       if (switchList[0] == switchType){
         raw_max = ArmSensor_.calibrateEncoder(0,0);
         cal_dir = false;
+        forward_index = 0;
       } else if (switchList[1] == switchType){
         raw_max = ArmSensor_.calibrateEncoder(0,0);
         cal_dir = false;
         null_is_max = false;
+        forward_index = 1;
       } else {}
     } else if (cal_dir == false){
       MainMotor_.goToSpeed(-calibrationSpeed);
@@ -151,3 +157,26 @@ float* HapticArm::calcMovement(){
   
   return;
  }
+
+void HapticArm::emergencyCheck(){
+  int* switchList = ArmSensor_.readSwitch();
+  int currentDir = MainMotor_.return_motor_dir();
+
+  int back_ind = abs(forward_index - 1);
+
+  if (switchList[forward_index] == 1 && currentDir == 1){
+    emergencyBreak();
+  } else if (switchList[back_ind] == 1 && currentDir == -1){
+    emergencyBreak();
+  }
+}
+
+void HapticArm::emergencyBreak(){
+  while (true) {
+    MainMotor_.goToSpeed(0);
+    Serial.println("Motor emergency break due to limits");
+    delay(1000);
+  }
+}
+
+
