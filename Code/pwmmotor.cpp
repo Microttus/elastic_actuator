@@ -40,7 +40,7 @@ void pwmMotor::goToSpeed(int motorSpeed){
         dirFlag = 0;
       }
     }
-    motorSpeed = abs(constrain(motorSpeed, saturationMin, saturationMax));
+    motorSpeed = constrain(abs(motorSpeed), saturationMin, saturationMax);
     analogWrite(PWMPin,motorSpeed); 
     lastMotorSpeed = motorSpeed;
   }
