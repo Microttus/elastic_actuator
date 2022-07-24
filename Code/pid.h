@@ -27,6 +27,7 @@ class PID
     PID(float Kp_in, float Ki_in, float Kd_in);
     float calculate(float value, float target);
     float backcalc(float value, float target, float backVal, float saturationMin, float saturationMax);
+    float compfilter(float in_val, float alpha = 0.002);
   
   private:
     float Kp;
@@ -37,6 +38,7 @@ class PID
     unsigned long my_time;
     unsigned long dt;
     float sat_calc_val;
+    float last_comp_val;
     
 };
 

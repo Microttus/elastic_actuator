@@ -11,7 +11,7 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 , dt(0)
 , lastPosition(0)
 , lastMovedSpeed(0)
-, calibrationSpeed(50)
+, calibrationSpeed(65)
 , raw_min(0)
 , raw_max(0)
 , switchType(0)
@@ -22,13 +22,16 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 void HapticArm::goToPos(float requiredPos){
   // Used for msking the arm go to a spesific position based on encoder
   float currentPos = ArmSensor_.readPos();
+  float currentCurrent = ArmSensor_.readForce();
   
-  int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
+  //int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
+  int calcSpeed = PositionPID_.backcalc(currentPos, requiredPos, 1, -255, 255);
   MainMotor_.goToSpeed(calcSpeed);
   emergencyCheck();
 
-  //float currentCurrent = ArmSensor_.readForce();
-  Serial.println(calcSpeed);
+  Serial.print(calcSpeed);
+  Serial.print("   ");
+  Serial.println(currentCurrent);
   return;
 }
 
@@ -39,7 +42,7 @@ void HapticArm::goToImpedance(float requiredPos, float antiConst){
   
   float calcError = PositionPID_.calculate(currentPos, requiredPos);
 
-  int calcSpeed = MotorPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
+  int calcSpeed = MotorPID_.calculate(currentPosMotor,requiredPos);//MotorPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
 
   MainMotor_.goToSpeed(calcSpeed);
   emergencyCheck();
@@ -55,7 +58,7 @@ void HapticArm::goToAdmittance(float requiredForce, float antiConst){
   
   float calcError = MotorPID_.calculate(currentForce, requiredForce);
 
-  int calcSpeed = PositionPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
+  float calcSpeed = PositionPID_.backcalc(currentPosMotor, calcError, antiConst, saturationLimit[0], saturationLimit[1]);
 
   MainMotor_.goToSpeed(calcSpeed);
   emergencyCheck();
@@ -117,6 +120,10 @@ float* HapticArm::calcMovement(){
   bool cal_flag = true;
   bool cal_dir = true;
   bool null_is_max = true;
+
+  // Ensure arm not at negative endpoint
+  MainMotor_.goToSpeed(calibrationSpeed);
+  delay(2000);
   
   while (cal_flag){
     int* switchList = ArmSensor_.readSwitch();
@@ -164,9 +171,9 @@ void HapticArm::emergencyCheck(){
 
   int back_ind = abs(forward_index - 1);
 
-  if (switchList[forward_index] == 1 && currentDir == 1){
+  if (switchList[forward_index] == 0 && currentDir == 1){
     emergencyBreak();
-  } else if (switchList[back_ind] == 1 && currentDir == -1){
+  } else if (switchList[back_ind] == 0 && currentDir == -1){
     emergencyBreak();
   }
 }

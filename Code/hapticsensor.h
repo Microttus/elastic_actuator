@@ -24,6 +24,7 @@
 #include "Arduino.h"
 #include "AS5600.h"
 #include "Wire.h"
+#include "pid.h"
 
 class HapticSensor{
   public:
@@ -50,6 +51,8 @@ class HapticSensor{
     float currentGain;
 
     AMS_5600 magDisk_;
+    PID CurrentPID_;
+    PID ForcePID_;
 };
 
 #endif 
