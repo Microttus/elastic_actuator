@@ -19,37 +19,43 @@
 class HapticArm{
   public:
     HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3]);
+
     void goToPos(float requiredPos);
-    void goToImpedance(float requiredPos, float antiConst);
-    void goToAdmittance(float requiredPos, float antiConst);
-    void resistForce(float forceThreshold);
-    void goSpring(float massConstant, float damperConstant, float springConstant, float initialPosition = 90.0);
     void calibrateArm();
+
+    void goImpedance(float massConstant, float damperConstant, float springConstant);
+    void goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition = 120.0);
   
   private:
+    // Needed objects are initialized
     HapticSensor ArmSensor_;
     pwmMotor MainMotor_;
     PID PositionPID_;
     PID MotorPID_;
     PID ForcePID_;
 
+    // Calculation of moved length and angle and needed varriables for these two
+    float* movedLength();
+    float* movedAngle();
+    float lastPosition;
+    float lastMovedSpeed;
+    float lastAngle;
+    float lastMovedAngleSpeed;
+    int calibrationSpeed;
     float armLength;
     unsigned long my_time;
     unsigned long dt;
 
-    float* calcMovement();
-    float lastPosition;
-    float lastMovedSpeed;
-    int calibrationSpeed;
+    // Switch and saturation values
     int raw_min;
     int raw_max;
     int switchType; // NO = 1; NC = 0;
     int saturationLimit[2] = {-255, 255};
-
-    void emergencyCheck();
-    void emergencyBreak();
     int forward_index;
-    
+
+    // emergecy methods for stop of motor
+    void emergencyCheck();
+    void emergencyBreak();    
 };
 
 #endif 

@@ -3,8 +3,8 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : forceSensorPin(forcePin)
 , currentSensorPin(currentPin)
-, magMinVal(1261)
-, magMaxVal(3820)
+, magMinVal(1173)
+, magMaxVal(3886)
 , currentGain(400)
 , switchOne(switchPinOne)
 , switchTwo(switchPinTwo)
@@ -21,10 +21,9 @@ HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int s
 float HapticSensor::readForce(){
   // Need prof ceck for how the load cell are to be read
   float loadcellVoltage = analogRead(forceSensorPin);
-  float messuredWeight = loadcellVoltage*loadcellType; 
-  float messuredForce = messuredWeight * g;
   float calc_weight = 9000-(18.453*loadcellVoltage);
-  float force_comp = ForcePID_.compfilter(calc_weight);
+  float messuredForce = (calc_weight/1000) * g;
+  float force_comp = ForcePID_.compfilter(messuredForce);
   
   return force_comp;
 }
@@ -38,7 +37,7 @@ float HapticSensor::readPos(){
 
 float HapticSensor::readCurrent(){
   int raw_val = analogRead(currentSensorPin);
-  float raw_volt = ((raw_val * 5.0)/1023)-2.5175;
+  float raw_volt = ((raw_val * 5.0)/1023)-2.5125;
   float current_read = (raw_volt*currentGain);
   float current_comp = CurrentPID_.compfilter(current_read);
   return current_comp;
