@@ -10,7 +10,7 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
 , PWMPin(pwm_in)
 , hallOnePin(hallPinOne_in)
 , hallTwoPin(hallPinTwo_in)
-, pass_by_rot(4000.0)
+, pass_by_rot(2650.0)
 , lastMotorSpeed(0)
 , saturationMax(254)
 , saturationMin(0)
@@ -19,7 +19,7 @@ pwmMotor::pwmMotor(int forwardPin_in, int backwardPin_in, int pwm_in, int hallPi
   pinMode(backwardPin_in, OUTPUT);
   pinMode(pwm_in, OUTPUT);
 
-  attachInterrupt(hallOnePin,increase_hall_val_one,CHANGE);
+  attachInterrupt(hallOnePin,increase_hall_val_one,RISING);
   //attachInterrupt(hallTwoPin,increase_hall_val_two,CHANGE);
 }
 
