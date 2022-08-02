@@ -16,7 +16,7 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 , calibrationSpeed(65)
 , raw_min(0)
 , raw_max(0)
-, switchType(0)
+, switchType(1)
 { 
  
 }
@@ -25,15 +25,20 @@ void HapticArm::goToPos(float requiredPos){
   // Used for msking the arm go to a spesific position based on encoder
   float currentCurrent = ArmSensor_.readCurrent();
   float currentPos = ArmSensor_.readPos();
+  float currentForce = ArmSensor_.readForce();
   
   //int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
   int calcSpeed = PositionPID_.backcalc(currentPos, requiredPos, 1, -255, 255);
   MainMotor_.goToSpeed(calcSpeed);
-  emergencyCheck();
+  //emergencyCheck();
 
   Serial.print(calcSpeed);
   Serial.print("   ");
-  Serial.println(currentPos);
+  Serial.print(currentPos);
+  Serial.print("   ");
+  Serial.print(currentCurrent);
+  Serial.print("   ");
+  Serial.println(currentForce);
   return;
 }
 
@@ -122,15 +127,15 @@ void HapticArm::calibrateArm(){
   
   while (cal_flag){
     int* switchList = ArmSensor_.readSwitch();
-    
+
     if (cal_dir == true){
       MainMotor_.goToSpeed(calibrationSpeed);
       if (switchList[0] == switchType){
-        raw_max = ArmSensor_.calibrateEncoder(0,0);
+        raw_max = ArmSensor_.calibrateEncoder();
         cal_dir = false;
         forward_index = 0;
       } else if (switchList[1] == switchType){
-        raw_max = ArmSensor_.calibrateEncoder(0,0);
+        raw_max = ArmSensor_.calibrateEncoder();
         cal_dir = false;
         null_is_max = false;
         forward_index = 1;
@@ -138,10 +143,10 @@ void HapticArm::calibrateArm(){
     } else if (cal_dir == false){
       MainMotor_.goToSpeed(-calibrationSpeed);
       if (switchList[0] == switchType && null_is_max == false){
-        raw_min = ArmSensor_.calibrateEncoder(0,0);
+        raw_min = ArmSensor_.calibrateEncoder();
         cal_flag = false;
       } else if (switchList[1] == switchType && null_is_max == true){
-        raw_min = ArmSensor_.calibrateEncoder(0,0);
+        raw_min = ArmSensor_.calibrateEncoder();
         cal_flag = false;
       } else {}
     } else {}
@@ -166,9 +171,9 @@ void HapticArm::emergencyCheck(){
 
   int back_ind = abs(forward_index - 1);
 
-  if (switchList[forward_index] == 0 && currentDir == 1){
+  if (switchList[forward_index] == 1 && currentDir == 1){
     emergencyBreak();
-  } else if (switchList[back_ind] == 0 && currentDir == -1){
+  } else if (switchList[back_ind] == 1 && currentDir == -1){
     emergencyBreak();
   }
 }

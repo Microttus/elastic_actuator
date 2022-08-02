@@ -33,7 +33,8 @@ class HapticSensor{
     float readPos();
     float readCurrent();
     int* readSwitch();
-    int calibrateEncoder(int newMinVal, int newMaxVal);
+
+    int calibrateEncoder(int newMinVal = 0, int newMaxVal = 0);
   
   private:
     int forceSensorPin;
