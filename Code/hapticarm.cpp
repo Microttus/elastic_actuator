@@ -171,9 +171,9 @@ void HapticArm::emergencyCheck(){
 
   int back_ind = abs(forward_index - 1);
 
-  if (switchList[forward_index] == 1 && currentDir == 1){
+  if (switchList[forward_index] == switchType && currentDir == 1){
     emergencyBreak();
-  } else if (switchList[back_ind] == 1 && currentDir == -1){
+  } else if (switchList[back_ind] == switchType && currentDir == -1){
     emergencyBreak();
   }
 }
