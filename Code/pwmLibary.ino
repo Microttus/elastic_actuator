@@ -17,7 +17,7 @@ float positionPID[3] = {2,0.001,1};       // PID for position {Kp, Ki, Kd}
 float motorPID[3] = {1,0,0};              // PID for outer cascade motor {Kp, Ki, Kd}
 float forcePID[3] = {2,0,1};              // PID for force {Kp, Ki, Kd} 
 
-float PIDset[3][3] = {{0.2,0.001,2},{2,0,1},{1,0,0.54}};
+float PIDset[3][3] = {{0.8,0.01,2},{2,0,1},{1,0,0.54}};
 
 HapticArm HapArm_(motorSetting, sensorSetting, PIDset);
 
@@ -26,7 +26,7 @@ void setup() {
   Serial.begin(9600);
   Wire.begin();
   delay(2000);
-  //HapArm_.calibrateArm(); // If calibration is needed, els should be let out 
+  HapArm_.calibrateArm(); // If calibration is needed, els should be let out 
   delay(500);
 }
 

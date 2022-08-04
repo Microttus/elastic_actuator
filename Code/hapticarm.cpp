@@ -13,7 +13,7 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 , lastMovedSpeed(0)
 , lastAngle(0)
 , lastMovedAngleSpeed(0)
-, calibrationSpeed(65)
+, calibrationSpeed(70)
 , raw_min(0)
 , raw_max(0)
 , switchType(1)
@@ -30,7 +30,7 @@ void HapticArm::goToPos(float requiredPos){
   //int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
   int calcSpeed = PositionPID_.backcalc(currentPos, requiredPos, 1, -255, 255);
   MainMotor_.goToSpeed(calcSpeed);
-  //emergencyCheck();
+  emergencyCheck();
 
   Serial.print(calcSpeed);
   Serial.print("   ");
@@ -127,7 +127,6 @@ void HapticArm::calibrateArm(){
   
   while (cal_flag){
     int* switchList = ArmSensor_.readSwitch();
-
     if (cal_dir == true){
       MainMotor_.goToSpeed(calibrationSpeed);
       if (switchList[0] == switchType){
@@ -151,6 +150,7 @@ void HapticArm::calibrateArm(){
       } else {}
     } else {}
   }
+  Serial.print(cal_flag);
   
   MainMotor_.goToSpeed(0);
   MainMotor_.reset_hall_val();
