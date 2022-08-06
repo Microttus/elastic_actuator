@@ -13,10 +13,12 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 , lastMovedSpeed(0)
 , lastAngle(0)
 , lastMovedAngleSpeed(0)
-, calibrationSpeed(70)
+, calibrationSpeed(80)
 , raw_min(0)
 , raw_max(0)
-, switchType(1)
+, switchType(0)
+, currentAngAd(30)
+, currentTorqueImp(0)
 { 
  
 }
@@ -30,8 +32,9 @@ void HapticArm::goToPos(float requiredPos){
   //int calcSpeed = PositionPID_.calculate(currentPos, requiredPos);
   int calcSpeed = PositionPID_.backcalc(currentPos, requiredPos, 1, -255, 255);
   MainMotor_.goToSpeed(calcSpeed);
-  emergencyCheck();
-
+  
+  
+  Serial.print("   ");
   Serial.print(calcSpeed);
   Serial.print("   ");
   Serial.print(currentPos);
@@ -39,13 +42,16 @@ void HapticArm::goToPos(float requiredPos){
   Serial.print(currentCurrent);
   Serial.print("   ");
   Serial.println(currentForce);
+  
+  emergencyCheck();
   return;
 }
 
-void HapticArm::goImpedance(float massConstant, float damperConstant, float springConstant){
+void HapticArm::goImpedance(float massConstant, float damperConstant, float springConstant, float initialPos){
   // Use for impedance control of the haptic arm
   float* movedVal = movedAngle();
   float currentCurrent = ArmSensor_.readCurrent();
+  float currentPos = ArmSensor_.readPos();
   
   float calcTourque = (massConstant*movedVal[2]) + (damperConstant*movedVal[1]) + (springConstant*movedVal[2]);
 
@@ -58,24 +64,29 @@ void HapticArm::goImpedance(float massConstant, float damperConstant, float spri
   return;
 }
 
- void HapticArm::goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition){
+ void HapticArm::goAdmittance(float massConstant, float damperConstant, float springConstant, float initialForce){
   // Used for the arm to act as a spring damper system
   float* movedVal = movedLength();
   float currentForce = ArmSensor_.readForce();
 
+  //float forceSet = ForcePID_.calculate(currentForce, initialForce);
+
   float newPos = (currentForce - (damperConstant*movedVal[1]) - (massConstant*movedVal[2]))/springConstant;
 
-  // Calculate the adiason angle
-  float newAng = atan(newPos/armLength);
-  float controlPos = newAng + initialPosition;
 
+  // Calculate the adiason angle
+  float newAng = atan2(newPos,armLength) * RAD_TO_DEG;
+  float controlPos = - newAng + currentAngAd;
+  currentAngAd = constrain(controlPos, 0, 250);
+  
   Serial.print(newAng);
   Serial.print("   ");
   Serial.print(currentForce);
   Serial.print("   ");
-
-  goToPos(controlPos);
-
+  Serial.print(controlPos);
+  Serial.print("   ");
+  
+  goToPos(currentAngAd);
   return;  
  }
 
@@ -84,7 +95,7 @@ float* HapticArm::movedLength(){
   my_time = millis();
 
   float currentPos = ArmSensor_.readPos();
-  float movedLength = armLength * tan(currentPos - lastPosition);
+  float movedLength = armLength * tan((currentPos-lastPosition)*DEG_TO_RAD);
 
   float movedSpeed = movedLength/dt;
   float movedAks = (movedSpeed - lastMovedSpeed)/dt;

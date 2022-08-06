@@ -55,6 +55,15 @@ float PID::backcalc(float value, float target, float backVal, float saturationMi
   last_i_val = int_error;
   last_val = calc_val;
   
+  Serial.print("dt: ");
+  Serial.print(dt);
+  Serial.print("   in_error: ");
+  Serial.print(in_error);
+  Serial.print("   dot_error: ");
+  Serial.print(dot_error);
+  Serial.print("   int_error: ");
+  Serial.print(int_error);
+  
   return(sat_calc_val);
 }
 

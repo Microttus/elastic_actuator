@@ -3,8 +3,8 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : forceSensorPin(forcePin)
 , currentSensorPin(currentPin)
-, magMinVal(767)
-, magMaxVal(3617)
+, magMinVal(511)
+, magMaxVal(3354)
 , currentGain(800)
 , switchOne(switchPinOne)
 , switchTwo(switchPinTwo)
@@ -14,8 +14,8 @@ HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int s
   analogReadResolution(10);
   pinMode(switchOne, INPUT);
   pinMode(switchTwo, INPUT);
-  digitalWrite(switchOne, HIGH);
-  digitalWrite(switchTwo, HIGH);
+  //digitalWrite(switchOne, LOW);
+  //digitalWrite(switchTwo, LOW);
   pinMode(forceSensorPin, INPUT);
   pinMode(currentSensorPin, INPUT);
 }

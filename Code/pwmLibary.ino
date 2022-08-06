@@ -10,14 +10,14 @@
 #include "hapticarm.h"
 
 // intitiate ports numbers
-int motorSetting[5] = {7, 8, 9, 0, 1};    // Pins for motor {forward, backward, PWM, hall_1, hall_2}
-int sensorSetting[4] = {1, 0, 5, 6};      // Pins for sensor  {force, current, switch one, switch two}
+int motorSetting[5] = {7, 8, 9, 2, 3};    // Pins for motor {forward, backward, PWM, hall_1, hall_2}
+int sensorSetting[4] = {1, 0, 6, 10};      // Pins for sensor  {force, current, switch one, switch two}
 
 float positionPID[3] = {2,0.001,1};       // PID for position {Kp, Ki, Kd}
 float motorPID[3] = {1,0,0};              // PID for outer cascade motor {Kp, Ki, Kd}
 float forcePID[3] = {2,0,1};              // PID for force {Kp, Ki, Kd} 
 
-float PIDset[3][3] = {{0.8,0.01,2},{2,0,1},{1,0,0.54}};
+float PIDset[3][3] = {{1.8,0.002,100},{2,0,1},{1,0,0.54}};
 
 HapticArm HapArm_(motorSetting, sensorSetting, PIDset);
 
@@ -26,12 +26,11 @@ void setup() {
   Serial.begin(9600);
   Wire.begin();
   delay(2000);
-  HapArm_.calibrateArm(); // If calibration is needed, els should be let out 
+  //HapArm_.calibrateArm(); // If calibration is needed, else should be let out 
   delay(500);
 }
 
 void loop() {
-  //HapArm_.goAdmittance(0,0,0.001);
-  HapArm_.goToPos(70);
-  delay(2);
+  HapArm_.goAdmittance(5,0,5,0);
+  //HapArm_.goToPos(110);
 }

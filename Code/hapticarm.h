@@ -23,8 +23,8 @@ class HapticArm{
     void goToPos(float requiredPos);
     void calibrateArm();
 
-    void goImpedance(float massConstant, float damperConstant, float springConstant);
-    void goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition = 120.0);
+    void goImpedance(float massConstant, float damperConstant, float springConstant, float initialPos);
+    void goAdmittance(float massConstant, float damperConstant, float springConstant, float initialForce);
   
   private:
     // Needed objects are initialized
@@ -45,6 +45,10 @@ class HapticArm{
     float armLength;
     unsigned long my_time;
     unsigned long dt;
+
+    // Position values for imp/ad control
+    float currentAngAd;
+    float currentTorqueImp;
 
     // Switch and saturation values
     int raw_min;
