@@ -40,9 +40,10 @@ float HapticSensor::readForce(){
 }
 
 float HapticSensor::readPos(){
-  int raw_val = magDisk_.getRawAngle();
-  float angle_pos = map(raw_val, magMinVal, magMaxVal, 0, 250);
-  
+  float out_max = 250.0;
+  float out_min = 0.0;
+  float raw_val = magDisk_.getRawAngle();
+  float angle_pos = ((raw_val-magMinVal) * (out_max-out_min)) / ((magMaxVal - magMinVal)) + out_min; 
   return angle_pos;
 }
 
