@@ -3,8 +3,8 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : forceSensorPin(forcePin)
 , currentSensorPin(currentPin)
-, magMinVal(250)
-, magMaxVal(3817)
+, magMinVal(511)
+, magMaxVal(3354)
 , currentGain(800)
 , switchOne(switchPinOne)
 , switchTwo(switchPinTwo)
@@ -14,8 +14,8 @@ HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int s
   analogReadResolution(10);
   pinMode(switchOne, INPUT);
   pinMode(switchTwo, INPUT);
-  digitalWrite(switchOne, HIGH);
-  digitalWrite(switchTwo, HIGH);
+  //digitalWrite(switchOne, LOW);
+  //digitalWrite(switchTwo, LOW);
   pinMode(forceSensorPin, INPUT);
   pinMode(currentSensorPin, INPUT);
 }
@@ -40,9 +40,10 @@ float HapticSensor::readForce(){
 }
 
 float HapticSensor::readPos(){
-  int raw_val = magDisk_.getRawAngle();
-  float angle_pos = map(raw_val, magMinVal, magMaxVal, 0, 250);
-  
+  float out_max = 250.0;
+  float out_min = 0.0;
+  float raw_val = magDisk_.getRawAngle();
+  float angle_pos = ((raw_val-magMinVal) * (out_max-out_min)) / ((magMaxVal - magMinVal)) + out_min; 
   return angle_pos;
 }
 

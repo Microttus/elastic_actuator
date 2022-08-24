@@ -46,8 +46,8 @@ class HapticSensor{
     int loadcellType = 5; //The kilo rating for the force sensor used to adjust the signal
     float g = 9.81; //m/s^2
 
-    int magMinVal;
-    int magMaxVal;
+    float magMinVal;
+    float magMaxVal;
 
     float currentGain;
 

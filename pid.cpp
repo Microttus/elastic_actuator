@@ -19,8 +19,8 @@ float PID::calculate(float value, float target){
   my_time = millis();
 
   float in_error = target - value;
-  float dot_error = (in_error - last_val)/dt;
   float int_error = last_i_val + (in_error * dt);
+  float dot_error = (in_error - last_val)/dt;
 
   float calc_val = Kp * in_error + Ki * int_error + Kd * dot_error;
   
@@ -46,8 +46,8 @@ float PID::backcalc(float value, float target, float backVal, float saturationMi
   my_time = millis();
 
   float in_error = target - value;
-  float dot_error = (in_error - last_val)/dt;
   float int_error = last_i_val + (in_error + ((1/backVal)*(sat_calc_val - last_val))* dt);
+  float dot_error = (in_error - last_val)/dt;
 
   float calc_val = Kp * in_error + Ki * int_error + Kd * dot_error;
 
