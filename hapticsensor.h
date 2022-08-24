@@ -37,19 +37,19 @@ class HapticSensor{
     int calibrateEncoder(int newMinVal = 0, int newMaxVal = 0);
   
   private:
-    int forceSensorPin;
-    int currentSensorPin;
-    int switchOne;
-    int switchTwo;
-    int switchList[2] = {3,3};
+    int _forceSensorPin;
+    int _currentSensorPin;
+    int _switchOne;
+    int _switchTwo;
+    int _switchList[2] = {3,3};
 
-    int loadcellType = 5; //The kilo rating for the force sensor used to adjust the signal
-    float g = 9.81; //m/s^2
+    int _loadcellType = 5; //The kilo rating for the force sensor used to adjust the signal
+    const float _g = 9.81; //m/s^2
 
-    float magMinVal;
-    float magMaxVal;
+    float _magMinVal;
+    float _magMaxVal;
 
-    float currentGain;
+    float _currentGain;
 
     AMS_5600 magDisk_;
     PID CurrentPID_;

@@ -35,29 +35,26 @@ class HapticArm{
     PID ForcePID_;
 
     // Calculation of moved length and angle and needed varriables for these two
-    float* movedLength();
-    float* movedAngle();
-    float lastPosition;
-    float lastMovedSpeed;
-    float lastAngle;
-    float lastMovedAngleSpeed;
-    int calibrationSpeed;
-    float armLength;
-    unsigned long my_time;
-    unsigned long dt;
-    float calcPos[3] = {0.0, 0.0, 0.0};
-    float calcAng[3] = {0.0, 0.0, 0.0};
+    void movedLength();
+    void movedAngle();
+    float _lastPosition;
+    float _lastMovedSpeed;
+    float _lastAngle;
+    float _lastMovedAngleSpeed;
+    int _calibrationSpeed;
+    float _armLength;
+    unsigned long _mark_time;
+    float _PosVelAks[3] = {0.0, 0.0, 0.0};
+    float _AngVelAks[3] = {0.0, 0.0, 0.0};
 
     // Position values for imp/ad control
-    float currentAngAd;
-    float currentTorqueImp;
+    float _currentAngAd;
+    float _currentTorqueImp;
 
     // Switch and saturation values
-    int raw_min;
-    int raw_max;
-    int switchType; // NO = 1; NC = 0;
-    int saturationLimit[2] = {-255, 255};
-    int forward_index;
+    int _switchType; // NO = 1; NC = 0;
+    int _saturationLimit[2] = {-255, 255};
+    int _forward_index;
 
     // emergecy methods for stop of motor
     void emergencyCheck();

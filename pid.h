@@ -30,15 +30,14 @@ class PID
     float compfilter(float in_val, float alpha = 0.002);
   
   private:
-    float Kp;
-    float Ki;
-    float Kd;
-    float last_val;
-    float last_i_val;
-    unsigned long my_time;
-    unsigned long dt;
-    float sat_calc_val;
-    float last_comp_val;
+    float _Kp;
+    float _Ki;
+    float _Kd;
+    float _last_val;
+    float _last_i_val;
+    unsigned long _mark_time;
+    float _sat_calc_val;
+    float _last_comp_val;
     
 };
 

@@ -31,21 +31,21 @@ class pwmMotor{
     static void increase_hall_val_one();      // Increase counter for hall one if triggered
     static void increase_hall_val_two();      // Increase counter for hall two if triggered
 
-    int forwardPin;
-    int backwardPin;
-    int PWMPin;
-    int hallOnePin;
-    int hallTwoPin;
-    float pass_by_rot;
-    int lastMotorSpeed;
+    int _forwardPin;
+    int _backwardPin;
+    int _PWMPin;
+    int _hallOnePin;
+    int _hallTwoPin;
+    float _pass_by_rot;
+    int _lastMotorSpeed;
     
-    int triggersPerRound;
-    float roundPerangle;
-    int saturationMax;
-    int saturationMin;
+    int _triggersPerRound;
+    float _roundPerangle;
+    int _saturationMax;
+    int _saturationMin;
     
-    bool dirFlag;    
-    float newPos;
+    bool _dirFlag;    
+    float _newPos;
 };
 
 #endif
