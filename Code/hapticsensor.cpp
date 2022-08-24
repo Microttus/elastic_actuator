@@ -1,28 +1,28 @@
 #include "hapticsensor.h"
 
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
-: forceSensorPin(forcePin)
-, currentSensorPin(currentPin)
-, magMinVal(511)
-, magMaxVal(3354)
-, currentGain(800)
-, switchOne(switchPinOne)
-, switchTwo(switchPinTwo)
+: _forceSensorPin(forcePin)
+, _currentSensorPin(currentPin)
+, _magMinVal(511)
+, _magMaxVal(3354)
+, _currentGain(800)
+, _switchOne(switchPinOne)
+, _switchTwo(switchPinTwo)
 , CurrentPID_(0,0,0)
 , ForcePID_(0,0,0)
 {
   analogReadResolution(10);
-  pinMode(switchOne, INPUT);
-  pinMode(switchTwo, INPUT);
-  //digitalWrite(switchOne, LOW);
-  //digitalWrite(switchTwo, LOW);
-  pinMode(forceSensorPin, INPUT);
-  pinMode(currentSensorPin, INPUT);
+  pinMode(_switchOne, INPUT);
+  pinMode(_switchTwo, INPUT);
+  //digitalWrite(_switchOne, LOW);
+  //digitalWrite(_switchTwo, LOW);
+  pinMode(_forceSensorPin, INPUT);
+  pinMode(_currentSensorPin, INPUT);
 }
 
 float HapticSensor::readForce(){
   // Need prof ceck for how the load cell are to be read
-  float loadcellVoltage = analogRead(forceSensorPin);
+  float loadcellVoltage = analogRead(_forceSensorPin);
 
   // Adjust for angle of arm
   float addAng = readPos();
@@ -33,7 +33,7 @@ float HapticSensor::readForce(){
   float calc_weight = 4 + (11.25*adjVolt);
 
   // Nedd adjustment for angle
-  float messuredForce = (calc_weight/1000) * g;
+  float messuredForce = (calc_weight/1000) * _g;
   float load_com = ForcePID_.compfilter(messuredForce,0.02);
   
   return load_com;
@@ -43,27 +43,27 @@ float HapticSensor::readPos(){
   float out_max = 250.0;
   float out_min = 0.0;
   float raw_val = magDisk_.getRawAngle();
-  float angle_pos = ((raw_val-magMinVal) * (out_max-out_min)) / ((magMaxVal - magMinVal)) + out_min; 
+  float angle_pos = ((raw_val-_magMinVal) * (out_max-out_min)) / ((_magMaxVal - _magMinVal)) + out_min; 
   return angle_pos;
 }
 
 float HapticSensor::readCurrent(){
-  int raw_val = analogRead(currentSensorPin);
+  int raw_val = analogRead(_currentSensorPin);
   float raw_volt = ((raw_val * 5.0)/1023)-2.487;
-  float current_read = (raw_volt*currentGain);
+  float current_read = (raw_volt*_currentGain);
   float current_comp = CurrentPID_.compfilter(current_read,0.02);
   return current_comp;
 }
 
 int* HapticSensor::readSwitch(){
-  switchList[0] = digitalRead(switchOne);
-  switchList[1] = digitalRead(switchTwo);
-  return switchList;
+  _switchList[0] = digitalRead(_switchOne);
+  _switchList[1] = digitalRead(_switchTwo);
+  return _switchList;
 }
 
 int HapticSensor::calibrateEncoder(int newMinVal, int newMaxVal){
-  magMinVal = newMinVal;
-  magMaxVal = newMaxVal;
+  _magMinVal = newMinVal;
+  _magMaxVal = newMaxVal;
 
   int raw_val = magDisk_.getRawAngle();
   

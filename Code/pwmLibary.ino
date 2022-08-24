@@ -26,7 +26,7 @@ void setup() {
   Serial.begin(9600);
   Wire.begin();
   delay(2000);
-  HapArm_.calibrateArm(); // If calibration is needed, else should be let out 
+  //HapArm_.calibrateArm(); // If calibration is needed, else should be let out 
   delay(500);
 }
 
