@@ -25,6 +25,7 @@
 #include "AS5600.h"
 #include "Wire.h"
 #include "pid.h"
+#include "MPU6050.h"
 
 class HapticSensor{
   public:
@@ -33,6 +34,7 @@ class HapticSensor{
     float readPos();
     float readCurrent();
     int* readSwitch();
+    void updateAccGyr(int16_t& acx, int16_t& acy, int16_t& acz, int16_t & gyx, int16_t & gyy, int16_t& gyz);
 
     int calibrateEncoder(int newMinVal = 0, int newMaxVal = 0);
   
@@ -54,6 +56,7 @@ class HapticSensor{
     AMS_5600 magDisk_;
     PID CurrentPID_;
     PID ForcePID_;
+    MPU6050 accgyr_;
 };
 
 #endif 

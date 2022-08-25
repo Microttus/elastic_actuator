@@ -32,6 +32,7 @@ void HapticArm::goToPos(float requiredPos){
   MainMotor_.goToSpeed(calcSpeed);
   
   // Print relevant data to the serial monitor
+  
   Serial.print("   ");
   Serial.print(calcSpeed);
   Serial.print("   ");
@@ -97,6 +98,7 @@ void HapticArm::goImpedance(float massConstant, float damperConstant, float spri
   }
   
   // Print relevant data to the serial monitor
+  
   Serial.print(newAng);
   Serial.print("   ");
   Serial.print(currentForce);
