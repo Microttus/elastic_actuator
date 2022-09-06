@@ -6,7 +6,6 @@
 *  Buliding the pwm motor liabry for inegrated control
 *
 */
-
 #include "hapticarm.h"
 
 // intitiate ports numbers
@@ -25,8 +24,8 @@ void setup() {
   // Initislize importent comunication
   Serial.begin(9600);
   Wire.begin();
-  //delay(2000);
-  //HapArm_.calibrateArm(); // If calibration is needed, else should be let out 
+  delay(2000);
+  HapArm_.calibrateArm(); // If calibration is needed, else should be let out 
   delay(500);
 }
 
@@ -34,5 +33,4 @@ void loop() {
   //HapArm_.goImpedance(0, 0, 1);
   HapArm_.goAdmittance(1,0,5);
   //HapArm_.goToPos(110);
-  delay(2);
 }

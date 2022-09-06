@@ -19,7 +19,7 @@ HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int s
   pinMode(_forceSensorPin, INPUT);
   pinMode(_currentSensorPin, INPUT);
 
-  accgyr_.initialize();
+  //accgyr_.initialize();
 }
 
 float HapticSensor::readForce(){
@@ -71,7 +71,8 @@ int HapticSensor::calibrateEncoder(int newMinVal, int newMaxVal){
   
   return raw_val;
 }
-
+/*
 void HapticSensor::updateAccGyr( int16_t& acx,  int16_t& acy,  int16_t& acz, int16_t& gyx, int16_t& gyy, int16_t& gyz){
   accgyr_.getMotion6(&acx, &acy, &acz, &gyx, &gyy, &gyz);
 }
+*/
