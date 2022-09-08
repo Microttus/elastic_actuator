@@ -16,7 +16,7 @@ float positionPID[3] = {2,0.001,1};       // PID for position {Kp, Ki, Kd}
 float motorPID[3] = {1,0,0};              // PID for outer cascade motor {Kp, Ki, Kd}
 float forcePID[3] = {2,0,1};              // PID for force {Kp, Ki, Kd} 
 
-float PIDset[3][3] = {{1.8,0.002,100},{2,0,1},{1,0,0.54}};
+float PIDset[3][3] = {{1.4,0.001,1000},{2,0,1},{1,0,0.54}};
 
 HapticArm HapArm_(motorSetting, sensorSetting, PIDset);
 
@@ -31,6 +31,8 @@ void setup() {
 
 void loop() {
   //HapArm_.goImpedance(0, 0, 1);
-  HapArm_.goAdmittance(1,0,5);
-  //HapArm_.goToPos(110);
+  HapArm_.goAdmittance(1,0,5,125);
+  //HapArm_.goToPos(125);
+
+  //HapArm_.studentProgram();
 }
