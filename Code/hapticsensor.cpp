@@ -3,8 +3,8 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : _forceSensorPin(forcePin)
 , _currentSensorPin(currentPin)
-, _magMinVal(511)
-, _magMaxVal(3354)
+, _magMinVal(842)
+, _magMaxVal(3643)
 , _currentGain(800)
 , _switchOne(switchPinOne)
 , _switchTwo(switchPinTwo)
@@ -19,7 +19,7 @@ HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int s
   pinMode(_forceSensorPin, INPUT);
   pinMode(_currentSensorPin, INPUT);
 
-  accgyr_.initialize();
+  //accgyr_.initialize();
 }
 
 float HapticSensor::readForce(){
@@ -45,6 +45,7 @@ float HapticSensor::readPos(){
   float out_max = 250.0;
   float out_min = 0.0;
   float raw_val = magDisk_.getRawAngle();
+  // Raw code map for float output
   float angle_pos = ((raw_val-_magMinVal) * (out_max-out_min)) / ((_magMaxVal - _magMinVal)) + out_min; 
   return angle_pos;
 }
@@ -71,7 +72,8 @@ int HapticSensor::calibrateEncoder(int newMinVal, int newMaxVal){
   
   return raw_val;
 }
-
+/*
 void HapticSensor::updateAccGyr( int16_t& acx,  int16_t& acy,  int16_t& acz, int16_t& gyx, int16_t& gyy, int16_t& gyz){
   accgyr_.getMotion6(&acx, &acy, &acz, &gyx, &gyy, &gyz);
 }
+*/

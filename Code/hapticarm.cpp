@@ -12,8 +12,8 @@ HapticArm::HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3
 , _lastMovedSpeed(0)
 , _lastAngle(0)
 , _lastMovedAngleSpeed(0)
-, _calibrationSpeed(80)
-, _switchType(0)
+, _calibrationSpeed(100)
+, _switchType(1)  // NO = 1; NC = 0;
 , _currentAngAd(30)
 , _currentTorqueImp(0)
 { 
@@ -45,13 +45,14 @@ void HapticArm::goToPos(float requiredPos){
   return;
 }
 
-void HapticArm::goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition){
+float HapticArm::goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition){
   // Use for impedance control of the haptic arm
 
   // Retrive snesor data
   movedAngle(); // Update the moved angle value of the arm
   float currentCurrent = ArmSensor_.readCurrent();
   float currentForce = ArmSensor_.readForce();
+  float currentPos = ArmSensor_.readPos();
   
   // Calculate the desired torque with equation 
   float calcTorque = (massConstant*_AngVelAks[2]) + (damperConstant*_AngVelAks[1]) + (springConstant*_AngVelAks[0]);
@@ -72,15 +73,16 @@ void HapticArm::goImpedance(float massConstant, float damperConstant, float spri
 
   // Emergency check and return
   emergencyCheck();
-  return;
+  return currentPos;
 }
 
- void HapticArm::goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition, float initialForce){
+ float HapticArm::goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition, float initialForce){
   // Used for the arm to act as a spring damper system
 
   // Retrive sensor data
   movedLength(); // Update the moved length of the arm
   float currentForce = ArmSensor_.readForce();
+  float currentPos = ArmSensor_.readPos();
 
   // Calculate the desired position with equation
   float newPos = (currentForce - (damperConstant*_PosVelAks[1]) - (massConstant*_PosVelAks[2]))/springConstant;
@@ -108,7 +110,7 @@ void HapticArm::goImpedance(float massConstant, float damperConstant, float spri
   
   // Direct the new desired position to the position method for PID control and return
   goToPos(_currentAngAd);
-  return;  
+  return currentPos;  
  }
 
 void HapticArm::movedLength(){
@@ -224,4 +226,9 @@ void HapticArm::emergencyBreak(){
   }
 }
 
+void HapticArm::studentProgram(){
+  
+  
+  return;
+}
 

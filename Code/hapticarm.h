@@ -23,9 +23,11 @@ class HapticArm{
     void goToPos(float requiredPos);
     void calibrateArm();
 
-    void goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition = 125);
-    void goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition = -1 , float initialForce = 0);
+    float goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition = 125);
+    float goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition = -1 , float initialForce = 0);
   
+    void studentProgram();
+
   private:
     // Needed objects are initialized
     HapticSensor ArmSensor_;
