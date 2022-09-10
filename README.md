@@ -20,6 +20,9 @@ For the Haptic Sommer School course use the studentProgram() implimented into th
 
 For more documentation of the system more detiled information can be found in the documentation folder. (LINK) The documentation is sectioned into mechanical buildt instruction, electrical components and softwear. In addition a more detaiueld explanation of the control theory is available.
 
+The equations used for the control modes are shown beneath.
+
+![Force Equations](/images/HapticForce.jpg)
 
 ## CAD
 A version off the design can be found in CAD as .stl files ready for printing. In the detailed parts folder the smallest parts and the belt-gear which should be printed in higher detail for optimale use, can be found.
