@@ -16,6 +16,10 @@ The code which is to be used can be found in Code.
 
 The main control .ino file can be altered to control the arm in different available modes. The libaries can also be used seperately for control of other mechanical instalation. 
 
+For the Haptic Sommer School course use the studentProgram() implimented into the HapticArm libary for creating own self-produced controlling programs.
+
+For more documentation of the system more detiled information can be found in the documentation folder. (LINK) The documentation is sectioned into mechanical buildt instruction, electrical components and softwear. In addition a more detaiueld explanation of the control theory is available.
+
 
 ## CAD
-A version off the design can be found in CAD, this may not be the final version
+A version off the design can be found in CAD as .stl files ready for printing. In the detailed parts folder the smallest parts and the belt-gear which should be printed in higher detail for optimale use, can be found.
