@@ -24,9 +24,10 @@
 
  #include "AS5600.h"
 
-void setup() {
-  AMS_5600 magDisk_; // Can be named what you like (_ at the end of the name is good naming policy)
+// Initialize encoder object
+ AMS_5600 magDisk_; // Can be named what you like (_ at the end of the name is good naming policy)
 
+void setup() {
   Serial.begin(9600);  // Set up Serial Monitor
 }
 
@@ -44,7 +45,7 @@ void loop() {
 
   int maxAngleOfArm = 250;        // From design
 
-  int angle_val = map(raw_val, minMagValZAtZeroDeg, maxMagValAtZeroDeg, 0, maxAngleOfArm);
+  int angle_val = map(raw_val, minMagValAtZeroDeg, maxMagValAtZeroDeg, 0, maxAngleOfArm);
 
   // Print Angles
   // Serial.print("Calculated angle of arm:  ")
