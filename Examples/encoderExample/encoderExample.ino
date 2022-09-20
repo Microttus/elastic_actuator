@@ -23,11 +23,13 @@
  */
 
  #include "AS5600.h"
+ #include "Wire.h"
 
 // Initialize encoder object
  AMS_5600 magDisk_; // Can be named what you like (_ at the end of the name is good naming policy)
 
 void setup() {
+  Wire.begin();
   Serial.begin(9600);  // Set up Serial Monitor
 }
 
@@ -36,7 +38,7 @@ void loop() {
   int raw_val = magDisk_.getRawAngle();
 
   // Print raw_val to Serial monitor
-  Serial.print("Raw value from sensor:  ")
+  Serial.print("Raw value from sensor:  ");
   Serial.println(raw_val);
 
   // Calculation for angles
