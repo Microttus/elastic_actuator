@@ -153,7 +153,7 @@ void HapticArm::movedAngle(){
   return;  
 }
 
-void HapticArm::calibrateArm(){
+float HapticArm::calibrateArm(){
   bool cal_flag = true;
   bool cal_dir = true;
   bool null_is_max = true;
@@ -202,7 +202,9 @@ void HapticArm::calibrateArm(){
   Serial.print("   Max: ");
   Serial.println(raw_max);
   
-  return;
+  float currentAngle = ArmSensor_.readPos();
+
+  return currentAngle;
  }
 
 void HapticArm::emergencyCheck(){
@@ -227,8 +229,12 @@ void HapticArm::emergencyBreak(){
 }
 
 void HapticArm::studentProgram(){
+  float voltData = ArmSensor_.readForce();
+  float angleVal = ArmSensor_.readPos();
   
-  
+  Serial.print(voltData);
+  Serial.print("  -  ");
+  Serial.println(angleVal);
   return;
 }
 

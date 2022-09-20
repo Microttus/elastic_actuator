@@ -21,7 +21,7 @@ class HapticArm{
     HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3]);
 
     void goToPos(float requiredPos);
-    void calibrateArm();
+    float calibrateArm();
 
     float goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition = 125);
     float goAdmittance(float massConstant, float damperConstant, float springConstant, float initialPosition = -1 , float initialForce = 0);

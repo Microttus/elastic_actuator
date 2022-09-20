@@ -3,9 +3,9 @@
 HapticSensor::HapticSensor(int forcePin, int currentPin, int switchPinOne, int switchPinTwo)
 : _forceSensorPin(forcePin)
 , _currentSensorPin(currentPin)
-, _magMinVal(842)
+, _magMinVal(1027)
 , _magMaxVal(3643)
-, _currentGain(800)
+, _currentGain(3855)
 , _switchOne(switchPinOne)
 , _switchTwo(switchPinTwo)
 , CurrentPID_(0,0,0)
@@ -28,7 +28,7 @@ float HapticSensor::readForce(){
 
   // Adjust for angle of arm
   float addAng = readPos();
-  float addVolt = 497 + 0.26983*addAng - 0.0045427*pow(addAng,2) + 0.000012153*pow(addAng,3);
+  float addVolt = 518 + 0.11019*addAng - 0.0020547*pow(addAng,2) + 0.0000051655*pow(addAng,3);
   float adjVolt = loadcellVoltage - addVolt;
 
   //float calc_weight = 9000-(18.453*adjVolt);
