@@ -30,5 +30,5 @@ A version off the design can be found in CAD as .stl files ready for printing. I
 ## Implimantation
 To be able to access Seeduino XIAO in the Arduino IDe Board Manager, an "Additional Board Manager URLs:" have to be added in FIle > Preferences:
 ```
-http://files.seeeduino.com/arduino/package_seeeduino_boards_index.json
+http://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json
 ```
