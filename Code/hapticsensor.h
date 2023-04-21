@@ -15,7 +15,7 @@
  * remember to adjust the gain setting if a different current 
  * sensor is used
  * 
- * This liabry requires: arduino and AS5600 and Wiere
+ * This liabry requires: arduino and AS5600 and Wire
  */
 
 #ifndef HapticSensor_h

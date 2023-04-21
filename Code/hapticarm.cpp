@@ -100,7 +100,6 @@ float HapticArm::goImpedance(float massConstant, float damperConstant, float spr
   }
   
   // Print relevant data to the serial monitor
-  
   Serial.print(newAng);
   Serial.print("   ");
   Serial.print(currentForce);
