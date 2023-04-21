@@ -26,3 +26,9 @@ The equations used for the control modes are shown beneath.
 
 ## CAD
 A version off the design can be found in CAD as .stl files ready for printing. In the detailed parts folder the smallest parts and the belt-gear which should be printed in higher detail for optimale use, can be found.
+
+## Implimantation
+To be able to access Seeduino XIAO in the Arduino IDe Board Manager, an "Additional Board Manager URLs:" have to be added in FIle > Preferences:
+'''
+http://files.seeeduino.com/arduino/package_seeeduino_boards_index.json
+'''
