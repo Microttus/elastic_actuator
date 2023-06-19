@@ -70,11 +70,13 @@ float PID::calcsaturation(float value, float target, float saturationMin, float 
 }
 
 float PID::backcalc(float value, float target, float backVal, float saturationMin, float saturationMax){
-  unsigned long dt = millis() - _mark_time;
+  unsigned long dt_long = millis() - _mark_time;
+  float dt = dt_long/1000.0;
+  //float dt = 0.005;
   _mark_time = millis();
 
   float in_error = target - value;
-  float int_error = _last_i_val + ((in_error + ((1/backVal)*(_sat_calc_val - _last_calc_val)))* dt);
+  float int_error =  _last_i_val + ((in_error + ((1/backVal)*(_sat_calc_val - _last_calc_val)))* dt);//_last_i_val + (in_error * dt);
   float dot_error = (_last_val - value)/dt;
 
   float calc_val = _Kp * in_error + _Ki * int_error + _Kd * dot_error;
@@ -83,16 +85,18 @@ float PID::backcalc(float value, float target, float backVal, float saturationMi
   _last_i_val = int_error;
   _last_val = value;
   _last_calc_val = calc_val;
-  
-  Serial.print("dt: ");
-  Serial.println(dt);
+  /*
+  Serial.print("value: ");
+  Serial.print(calc_val);
+  Serial.print("   dt: ");
+  Serial.print(dt*100.0);
   Serial.print("   in_error: ");
   Serial.print(in_error);
   Serial.print("   dot_error: ");
   Serial.print(dot_error);
   Serial.print("   int_error: ");
   Serial.println(int_error);
-  
+  */
   return(_sat_calc_val);
 }
 
@@ -115,7 +119,7 @@ float PID::backnoisecalc(float value, float target, float backVal, float noiseVa
   _last_val = value;
   _last_calc_val = calc_val;
   _last_d_val = u_d_error;
-  
+  /*
   Serial.print("dt: ");
   Serial.println(dt);
   Serial.print("   in_error: ");
@@ -124,7 +128,7 @@ float PID::backnoisecalc(float value, float target, float backVal, float noiseVa
   Serial.print(dot_error);
   Serial.print("   int_error: ");
   Serial.println(int_error);
-  
+  */
   return(_sat_calc_val);
 }
 

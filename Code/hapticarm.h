@@ -20,7 +20,7 @@ class HapticArm{
   public:
     HapticArm(int motorSettings[], int sensorSettings[], float PIDset[][3]);
 
-    void goToPos(float requiredPos);
+    float goToPos(float requiredPos);
     float calibrateArm();
 
     float goImpedance(float massConstant, float damperConstant, float springConstant, float initialPosition = 125);
@@ -38,7 +38,7 @@ class HapticArm{
 
     // Calculation of moved length and angle and needed varriables for these two
     void movedLength();
-    void movedAngle();
+    void movedAngle(float initPos);
     float _lastPosition;
     float _lastMovedSpeed;
     float _lastAngle;
