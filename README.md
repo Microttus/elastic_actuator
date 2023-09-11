@@ -2,6 +2,10 @@
 
 The main gloa of this project is to create a easy to bulid and assamble haptic instalation which can be controlled as a haptic devise. This is made possible by the use of a joit with integrated springs. A greater displacment of the motor for a smaller amount of force compeared to a rigid robotic arm are therfor possible. 
 
+## Video
+Both Impedance control and Admittance control was tested, and can be seen in this video: 
+https://youtu.be/x0tvgowaUfE?si=nHkEfITcb-D-KBVI
+
 ## The Haptic Arm Lab
 
 ![Haptic Arm Lab](/images/DSC_2766.JPG)
