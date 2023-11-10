@@ -1,8 +1,29 @@
-# HapticSommerSchool
+# Elastic Arm
 
-The main gloa of this project is to create a easy to bulid and assamble haptic instalation which can be controlled as a haptic devise. This is made possible by the use of a joit with integrated springs. A greater displacment of the motor for a smaller amount of force compeared to a rigid robotic arm are therfor possible. 
+This device was developed and tested during the Haptic Summer School
+at UiA for the EMERALD project Autum 2022.
 
-For how to use see the: How To Use section
+## Table of Content
+
+1. [Motivation](#motivation)
+1. [Demonstration](#Video)
+2. [Intro](#the-haptic-arm-lab)
+3. [Code](#code)
+4. [CAD](#cad)
+5. [How To Use Seeeduino](#implementation-of-seeeduino-in-arduino-ide)
+6. [How To Use](#how-to-use)
+   - [Instalation](#installation)
+   - [Test Code Explanation](#test-code-explanation)
+
+## Motivation
+
+The main goal of this project is to create an easy to build and 
+assemble haptic installation which can be controlled as a haptic devise. 
+This is made possible by the use of a joint with integrated springs. 
+A greater displacement of the motor for a smaller amount of force 
+compared to a rigid robotic arm is therefore possible. 
+
+For how to use see: [How To Use](#how-to-use)
 
 ## Video
 This YouTube video shows an example of both Impedance control and Admittance control was tested:
@@ -12,7 +33,12 @@ https://youtu.be/x0tvgowaUfE?si=nHkEfITcb-D-KBVI
 
 ![Haptic Arm Lab](/images/DSC_2766.JPG)
 
-In Haptic devices there are two main ways for control. Impedance control aim to steer the position by reading the motor force. Admittance control aim to control the force of the device by adjusting the position. This two are integrated as methods and can be used directly, By the use of the low level libaries this contol codes may also be created by the user. A discriptive block diagram of the two control loops. 
+In Haptic devices, there are two main ways for control. 
+Impedance control aim to steer the position by reading the motor force. 
+Admittance control aim to control the force of the device by adjusting the position. 
+This two are integrated as methods and can be used directly, 
+by the use of the low-level libraries this control codes may also be created by the user. 
+A descriptive block diagram of the two control loops. 
 
 ![Block Diagram](/images/ControlStructureHapticArm.png)
 
