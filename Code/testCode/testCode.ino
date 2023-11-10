@@ -10,7 +10,7 @@
 
 #include "hapticsensor.h"
 
-// intitiate ports numbers
+// Initiate ports numbers
 int motorSetting[5] = {7, 8, 9, 2, 3};    // Pins for motor {forward, backward, PWM, hall_1, hall_2}
 int sensorSetting[4] = {1, 0, 6, 10};      // Pins for sensor  {force, current, switch one, switch two}
 
@@ -52,11 +52,15 @@ void loop() {
   // sinewave for setopint reference
   float pos = A*sin(B*dt) + 125;
 
-  HapArm_.goImpedance(0, 0, 1);
+  // For control with Impedance uncommen this line
+  //HapArm_.goImpedance(0, 0, 1);
+
+  // For control with Adimttance uncomment this line
   //HapArm_.goAdmittance(0.1,2,0.02,pos);
-  //HapArm_.goToPos(125);
 
+  // For basic position control uncomment this line
+  HapArm_.goToPos(125);
+
+  // This function can be used if more sofiticated contorl functons are to be implimented
   //HapArm_.studentProgram();
-
-  dt = dt + 0.02;
 }
