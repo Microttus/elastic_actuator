@@ -3,6 +3,7 @@
 This device was developed and tested during the Haptic Summer School
 at UiA for the EMERALD project Autum 2022.
 
+
 *If you are to publish work base don this project please cite:*
 
 ```text
