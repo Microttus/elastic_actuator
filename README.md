@@ -3,6 +3,20 @@
 This device was developed and tested during the Haptic Summer School
 at UiA for the EMERALD project Autum 2022.
 
+*If you are to publish work base don this project please cite:*
+
+```text
+@article{sanfilippo2024open,
+  title={Open-source design of low-cost sensorised elastic actuators for collaborative prosthetics and orthotics},
+  author={Sanfilippo, Filippo and {\O}kter, Martin and Dale, J{\o}rgen and Tuan, Hua Minh and Zafar, Muhammad Hamza and Ottestad, Morten},
+  journal={HardwareX},
+  volume={19},
+  pages={e00564},
+  year={2024},
+  publisher={Elsevier}
+}
+```
+
 ## Table of Content
 
 1. [Motivation](#motivation)
